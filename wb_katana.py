@@ -2,7 +2,7 @@
 
 import tomllib
 
-def show_diagram():
+def start_diagram():
     import matplotlib.pyplot as plt
 
     margin = 20
@@ -99,7 +99,8 @@ Zus     Jet
     diagram.set_xlabel('Moment (kg.m)')
     diagram.set_ylabel('Weight (kg)')
 
-    plt.show()
+    return plt, diagram, info
+
 
 def load_profile(path):
     with open(path, 'rb') as fd:
@@ -107,17 +108,17 @@ def load_profile(path):
     return profile
 
 
-def calc(pob, baggage, fuel=0.0):
-    weight = pob + baggage + fuel
-    moment = 0.0
+def calc(empty_weight, empty_moment, pob, baggage, fuel=0.0):
+    weight = empty_weight + pob + baggage + fuel
+    moment = empty_moment
     moment += 0.143 * pob
     moment += 0.824 * (baggage + fuel)  # same arm
+    print( weight, moment) 
     return weight, moment
 
 
 if __name__ == "__main__":
     profile = load_profile('d-ecpu.toml')
-    print(profile)
 
     empty_weight = profile['empty_weight']
     empty_moment = profile['empty_moment']
@@ -130,10 +131,12 @@ if __name__ == "__main__":
     pob_weight = pilot_weight + pax_weight
 
     bagage_weight = profile['baggage']
-    zero_fuel_weight, zero_fuel_moment = calc(pob_weight, bagage_weight)
+    zero_fuel_weight, zero_fuel_moment = calc(empty_weight, empty_moment, pob_weight, bagage_weight)
 
     fuel_liters = profile['fuel']
     fuel_weight = fuel_liters * 0.72
-    takeoff_fuel_weight, takeoff_fuel_moment = calc(pob_weight, bagage_weight)
+    takeoff_fuel_weight, takeoff_fuel_moment = calc(empty_weight, empty_moment, pob_weight, bagage_weight, fuel_weight)
 
-    show_diagram()
+    plt, diagram, info = start_diagram()
+    diagram.plot( [zero_fuel_moment, takeoff_fuel_moment], [zero_fuel_weight, takeoff_fuel_weight], color='green' ) 
+    plt.show()
