@@ -14,6 +14,6 @@ empty_moment = 179.40
 pilot_weight = 75.0
 pax_weight = 65.0
 
-baggage = 0.0
-fuel = 80
+baggage = 2.0
+fuel = 75
 
