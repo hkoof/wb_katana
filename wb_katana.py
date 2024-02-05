@@ -22,15 +22,7 @@ def start_diagram():
     color_valid_area = 'white'
 
     fig, (diagram, info) = plt.subplots(2, 1, figsize=(7,7), height_ratios=(3,2) )
-
     info.axis("off")
-    info.text(0, 0, '''Aap
-Noot
-Mies
-    Wim
-Zus     Jet
-'''
-)
 
     # Plot same arm lines as in POH
     #
@@ -116,7 +108,6 @@ def calc(empty_weight, empty_moment, pob, baggage, fuel=0.0):
     moment = empty_moment
     moment += 0.143 * pob
     moment += 0.824 * (baggage + fuel)  # same arm
-    print( weight, moment) 
     return weight, moment
 
 
@@ -129,8 +120,6 @@ def is_within_limits(weight, moment):
         return False
 
     arm = moment / weight 
-    print("arm:", arm)
-    print()
     if arm < arms[0]:
         return False
     if arm > arms[-1]:
@@ -175,4 +164,6 @@ if __name__ == "__main__":
         marker='.',
     ) 
 
+
+    info.text(0, 0, 'QQQ')
     plt.show()
