@@ -1,0 +1,19 @@
+# Weight & balance input file for wb-katane.py
+#
+# Units:
+# weight in kilogram (kg)
+# arm in meters (m)
+# fuel in liters (l)
+#
+title = "Diamond Katana"
+date = "Jan 1, 1970"
+
+callsign = "MY-PLN"
+empty_weight = 529.55
+empty_moment = 179.40
+
+pilot_weight = 75.0
+pax_weight = 0.0
+
+baggage = 0.0
+fuel = 50
